@@ -1,0 +1,66 @@
+﻿@using Arenda.Models.ViewModel;
+@model BuildingViewModel
+
+<form method="post">
+    <input asp-for="Building.Id" hidden />
+    <div class="border p3">
+        <div class="form-group row">
+            <h2 class="text-info p1-3">Добавление здания</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Building.NumberOfBuilding"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Building.NumberOfBuilding" class="form-control" />
+                        <span asp-validation-for="Building.NumberOfBuilding" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Building.PhoneNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Building.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Building.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Building.CityAreaId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Building.CityAreaId" asp-items="@Model.CityAreaSelectList" class="form-control">
+                            <option disabled selected>--Выберите район города--</option>
+                        </select>
+                        <span asp-validation-for="Building.CityAreaId" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                        <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @*KEEP THIS EMPTY*@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

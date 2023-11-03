@@ -1,0 +1,51 @@
+﻿@using Arenda.Models.ViewModel;
+@model BuildingPremisesViewModel
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Список помещений в здании</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-route-Id="@Model.Building.Id" asp-action="CreatePremise" class="btn btn-primary">Добавить помещение в здание</a>
+            <a asp-action="Index" class="btn btn-secondary">Назад</a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if (Model.Premises.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Номер помещения</th>
+                    <th>Полезная комната</th>
+                    <th>Номер этажа</th>
+                    <th>Вид отделки</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.Premises)
+                {
+                    <tr>
+                        <td width="15%">@obj.PremiseNumber</td>
+                        <td width="15%">@obj.UsableArea</td>
+                        <td width="15%">@obj.Floor</td>
+                        <td width="25%">@obj.TypeOfFinishing.Name</td>
+                        <td class="text-center">
+@*                            <div class="w-75 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="ViewPremises" class="btn btn-primary mx-2">Просмотр помещений в здании</a>
+                            </div>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Помещений в здании не найдено</p>
+    }
+</div>

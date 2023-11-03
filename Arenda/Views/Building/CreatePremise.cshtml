@@ -1,0 +1,77 @@
+﻿@using Arenda.Models.ViewModel;
+@model PremiseViewModel
+
+<form method="post">
+    <input asp-for="Premise.Id" hidden />
+    <input asp-for="Premise.BuildingId" hidden/>
+    <div class="border p3">
+        <div class="form-group row">
+            <h2 class="text-info p1-3">Добавление помещения</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Premise.PremiseNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Premise.PremiseNumber" class="form-control" />
+                        <span asp-validation-for="Premise.PremiseNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Premise.UsableArea"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Premise.UsableArea" class="form-control" />
+                        <span asp-validation-for="Premise.UsableArea" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Premise.Floor"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Premise.Floor" class="form-control" />
+                        <span asp-validation-for="Premise.Floor" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Premise.TypeOfFinishingId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Premise.TypeOfFinishingId" asp-items="@Model.TypeOfFinishingSelectList" class="form-control">
+                            <option disabled selected>--Выберите район города--</option>
+                        </select>
+                        <span asp-validation-for="Premise.TypeOfFinishingId" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-route-id="@Model.Premise.BuildingId" asp-action="ViewPremises" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @*KEEP THIS EMPTY*@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

@@ -1,0 +1,31 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Arenda.Models
+{
+    public class Contract
+    {
+        [Key]
+        public int Id { get; set; }
+
+        public int PaymentFrequencyId { get; set; }
+        [ForeignKey(nameof(PaymentFrequencyId))]
+        public PaymentFrequency? PaymentFrequency { get; set; }
+
+        public int ArendatorId { get; set; }
+        [ForeignKey(nameof(ArendatorId))]
+        public Arendator? Arendator { get; set; }
+
+        public DateTime? StartOfContract { get; set; }
+        public DateTime? EndOfContract { get; set; }
+
+        public string? AdditionalInfo { get; set; }
+    }
+
+    public class PaymentFrequency
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+}
