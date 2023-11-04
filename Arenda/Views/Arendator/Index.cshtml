@@ -1,0 +1,86 @@
+﻿@using Arenda.Models.ViewModel;
+@model ArendatorViewModel
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary" style="text-align:center;">Список арендаторов</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-primary">Добавить арендатора</a>
+        </div>
+    </div>
+
+    <br /><br />
+    <h3 class="text-primary">Список физических лиц</h3>
+    @if(Model.PhysicalPersons.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Телефон</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.PhysicalPersons)
+                {
+                    <tr>
+                        <td width="15%">@obj.SecondName</td>
+                        <td width="15%">@obj.FirstName</td>
+                        <td width="15%">@obj.LastName</td>
+                        <td width="15%">@obj.PhoneNumber</td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="ViewPremises" class="btn btn-primary mx-2">Доп информация</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Физических лиц не найдено</p>
+    }
+    <br /><br />
+    <h3 class="text-primary">Список юридических лиц</h3>
+    @if (Model.LegalEntities.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Телефон</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.LegalEntities)
+                {
+                    <tr>
+                        <td width="15%">@obj.SecondName</td>
+                        <td width="15%">@obj.FirstName</td>
+                        <td width="15%">@obj.LastName</td>
+                        <td width="15%">@obj.PhoneNumber</td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="ViewPremises" class="btn btn-primary mx-2">Доп информация</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Юридических лиц не найдено</p>
+    }
+</div>
