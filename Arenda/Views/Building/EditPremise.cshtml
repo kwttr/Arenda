@@ -3,7 +3,7 @@
 
 <form method="post">
     <input asp-for="Premise.Id" hidden />
-    <input asp-for="Premise.BuildingId" hidden/>
+    <input asp-for="Premise.BuildingId" hidden />
     <div class="border p3">
         <div class="form-group row">
             <h2 class="text-info p1-3">Добавление помещения</h2>
@@ -28,7 +28,6 @@
                         <span asp-validation-for="Premise.UsableArea" class="text-danger"></span>
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="Premise.Floor"></label>

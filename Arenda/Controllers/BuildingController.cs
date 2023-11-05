@@ -119,5 +119,40 @@ namespace Arenda.Controllers
             }
             return RedirectToAction("ViewPremises",new {Id = premiseVM.Premise.BuildingId});
         }
+
+        //GET - EDITPREMISE
+        public IActionResult EditPremise(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                PremiseViewModel obj = new PremiseViewModel()
+                {
+                    Premise = _db.Premises.FirstOrDefault(i => i.Id == id),
+                    TypeOfFinishingSelectList = _db.TypeOfFinishing.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    })
+                };
+                return View(obj);
+            }
+        }
+
+        //POST - EDITPREMISE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPremise(PremiseViewModel obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Premises.Update(obj.Premise);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
