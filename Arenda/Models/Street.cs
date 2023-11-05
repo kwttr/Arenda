@@ -6,6 +6,8 @@ namespace Arenda.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Название улицы")]
         public string Name { get; set; }
     }
 }

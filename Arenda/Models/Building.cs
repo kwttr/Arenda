@@ -8,15 +8,20 @@ namespace Arenda.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name ="Район города")]
         public int CityAreaId { get; set; }
         [ForeignKey(nameof(CityAreaId))]
         public CityArea? CityArea { get; set; }
 
         public int? PremisesCount { get; set; }
+        [Display(Name = "Номер здания")]
         public string NumberOfBuilding { get; set; }
+        [Display(Name = "Телефон коменданта")]
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "Улица")]
         public int StreetId { get; set; }
+        [ForeignKey(nameof(StreetId))]
         public Street? Street { get; set; }
     }
 
