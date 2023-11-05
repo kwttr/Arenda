@@ -3,6 +3,7 @@ using System;
 using Arenda.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arenda.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231105055530_AddCityAreaToStreet")]
+    partial class AddCityAreaToStreet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -382,11 +385,16 @@ namespace Arenda.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CityAreaId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityAreaId");
 
                     b.ToTable("Streets");
 
@@ -394,11 +402,13 @@ namespace Arenda.Migrations
                         new
                         {
                             Id = 1,
+                            CityAreaId = 0,
                             Name = "Красный проспект"
                         },
                         new
                         {
                             Id = 2,
+                            CityAreaId = 0,
                             Name = "Улица Ленина"
                         });
                 });
@@ -625,6 +635,17 @@ namespace Arenda.Migrations
                     b.Navigation("Premise");
 
                     b.Navigation("RentPurpose");
+                });
+
+            modelBuilder.Entity("Arenda.Models.Street", b =>
+                {
+                    b.HasOne("Arenda.Models.CityArea", "CityArea")
+                        .WithMany()
+                        .HasForeignKey("CityAreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CityArea");
                 });
 
             modelBuilder.Entity("Arenda.Models.LegalEntity", b =>

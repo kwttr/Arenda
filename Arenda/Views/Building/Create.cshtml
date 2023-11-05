@@ -37,7 +37,17 @@
                         </select>
                         <span asp-validation-for="Building.CityAreaId" class="text-danger"></span>
                     </div>
-
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Building.StreetId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Building.StreetId" asp-items="@Model.StreetSelectList" class="form-control">
+                            <option disabled selected>--Выберите улицу--</option>
+                        </select>
+                        <span asp-validation-for="Building.StreetId" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">

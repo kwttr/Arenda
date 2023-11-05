@@ -6,5 +6,6 @@ namespace Arenda.Models.ViewModel
     {
         public Building Building { get; set; }
         public IEnumerable<SelectListItem>? CityAreaSelectList { get; set; }
+        public IEnumerable<SelectListItem>? StreetSelectList { get; set; }
     }
 }

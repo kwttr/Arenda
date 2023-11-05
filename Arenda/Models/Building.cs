@@ -15,6 +15,9 @@ namespace Arenda.Models
         public int? PremisesCount { get; set; }
         public string NumberOfBuilding { get; set; }
         public string PhoneNumber { get; set; }
+
+        public int StreetId { get; set; }
+        public Street? Street { get; set; }
     }
 
     public class CityArea

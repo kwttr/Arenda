@@ -20,6 +20,7 @@ namespace Arenda.Controllers
             foreach(var obj in objList)
             {
                 obj.CityArea = _db.CityAreas.FirstOrDefault(x=>x.Id==obj.CityAreaId);
+                obj.Street = _db.Streets.FirstOrDefault(x=>x.Id==obj.StreetId);
             }
             return View(objList);
         }
@@ -31,6 +32,11 @@ namespace Arenda.Controllers
             {
                 Building = new Building(),
                 CityAreaSelectList = _db.CityAreas.Select(i=> new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                StreetSelectList = _db.Streets.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
