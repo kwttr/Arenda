@@ -25,7 +25,7 @@ namespace Arenda.Models.ModelBinders
             {
                 var doubleValue = valueProviderResult.FirstValue;
 
-                var parsedDouble = Double.Parse(doubleValue, CultureInfo.InvariantCulture);
+                var parsedDouble = Double.Parse(doubleValue);
 
                 bindingContext.Result = ModelBindingResult.Success(parsedDouble);
             }
