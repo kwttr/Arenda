@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Arenda.Models.ModelBinders;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arenda.Models
@@ -20,6 +22,7 @@ namespace Arenda.Models
 
         [Display(Name = "Номер помещения")]
         public int PremiseNumber { get; set; }
+        [BindProperty(BinderType = typeof(CustomDoubleModelBinder))]
         [Display(Name = "Полезная площадь")]
         public double UsableArea { get; set; }
         [Display(Name = "Этаж")]
