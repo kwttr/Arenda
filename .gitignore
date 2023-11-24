@@ -6,6 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+Arenda/Database.db-wal
+Arenda/Database.db-shm
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

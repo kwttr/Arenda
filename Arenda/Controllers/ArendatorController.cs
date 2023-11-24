@@ -38,15 +38,94 @@ namespace Arenda.Controllers
             return View(obj);
         }
 
-        //POST - CREATEPHYSICALPERSOT
+        //POST - CREATEPHYSICALPERSON
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreatePhysicalPerson(PhysicalPerson obj)   
         {
+            if(ModelState.IsValid)
+            {
+                _db.PhysicalPersons.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
 
+        //View additional Information of physical person
+        public IActionResult ViewAdditionalInformationPP(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var obj = _db.PhysicalPersons.Find(id);
+                return View(obj);
+            }
+        }
+
+        //GET - EDITPHYSICALPERSON
+        public IActionResult EditPhysicalPerson(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var obj = _db.PhysicalPersons.Find(id);
+                return View(obj);
+            }
+        }
+
+        //POST - EDITPHYSICALPERSON
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPhysicalPerson(PhysicalPerson obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.PhysicalPersons.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
+        //GET - DELETEPHYSICALPERSON
+        public IActionResult DeletePhysicalPerson(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var obj =_db.PhysicalPersons.Find(id);
+                return View(obj);
+            }
+        }
 
+        //POST - DELETEPHYSICALPERSON
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePhysicalPerson(PhysicalPerson obj)
+        {
+            if (obj != null)
+            {
+                _db.PhysicalPersons.Remove(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(obj);
+            }
+        }
     }
 }
