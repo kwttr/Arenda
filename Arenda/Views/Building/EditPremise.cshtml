@@ -49,12 +49,11 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Premise.NumberExist"></label>
-                    </div>
-                    <div class="col-8 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="checkbox">
+                        <label asp-for="Premise.NumberExist" class="form-label">
+                            <input class="form-check-input" asp-for="Premise.NumberExist" />
+                            @Html.DisplayNameFor(m => m.Premise.NumberExist)
+                        </label>
                     </div>
                 </div>
                 <div class="form-group row">

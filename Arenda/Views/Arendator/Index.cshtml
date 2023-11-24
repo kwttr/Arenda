@@ -1,16 +1,18 @@
 ﻿@using Arenda.Models.ViewModel;
 @model ArendatorViewModel
-
+<div id="myModalShow" class="modal-dialog"></div>
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary" style="text-align:center;">Список арендаторов</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-action="Create" class="btn btn-primary">Добавить арендатора</a>
+            <button id="openModalButton" class="btn btn-primary">Добавить арендатора</button>
         </div>
     </div>
-
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
     <br /><br />
     <h3 class="text-primary">Список физических лиц</h3>
     @if(Model.PhysicalPersons.Count() > 0)
@@ -84,3 +86,19 @@
         <p>Юридических лиц не найдено</p>
     }
 </div>
+@section scripts
+    {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $("#openModalButton").click(function () {
+            $.ajax({
+                url: '/Arendator/OpenModal',
+                success: function (result) {
+                    $("#myModalShow").html(result);
+                    $("#myModal").modal('show');
+                }
+            });
+        });
+    </script>
+}

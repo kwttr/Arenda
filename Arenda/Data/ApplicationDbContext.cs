@@ -146,8 +146,7 @@ namespace Arenda.Data
                 new Bank()
                 {
                     Id = 1,
-                    Name = "Сбербанк",
-                    StreetId = 1
+                    Name = "Сбербанк"
                 }
             };
             modelBuilder.Entity<Bank>().HasData(banks);

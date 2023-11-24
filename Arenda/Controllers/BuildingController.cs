@@ -152,7 +152,9 @@ namespace Arenda.Controllers
                 _db.Premises.Update(obj.Premise);
                 _db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            string url = Url.Action("ViewPremises", new { id = obj.Premise.BuildingId });
+            url = url.Replace("%2F", "/");
+            return Redirect(url);
         }
     }
 }

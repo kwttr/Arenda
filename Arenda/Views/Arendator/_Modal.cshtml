@@ -1,0 +1,18 @@
+﻿<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn btn-secondary" data-dismiss="modal" style="width:20%">Закрыть</button>
+            </div>
+            <div class="modal-body">
+                <a asp-action="CreateLegalEntity" type="button" class="btn btn-primary" style="width:38%">Юридическое лицо</a>
+                <a asp-action="CreatePhysicalPerson" class="btn btn-primary" style="width:35%">Физическое лицо</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+    {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+}
