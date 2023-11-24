@@ -62,7 +62,7 @@ namespace Arenda.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Bank obj)
         {
-            if (ModelState.IsValid)
+            if (obj!=null)
             {
                 _db.Banks.Remove(obj);
                 _db.SaveChanges();
