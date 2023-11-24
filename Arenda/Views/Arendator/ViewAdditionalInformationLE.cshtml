@@ -1,0 +1,114 @@
+﻿@using Arenda.Models.ViewModel;
+@model LegalEntity
+
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="border p3">
+        <div class="form-group row">
+            <h2 class="text-info p1-3">Просмотр информации юридического лица</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="SecondName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="SecondName" class="form-control" disabled/>
+                        <span asp-validation-for="SecondName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="FirstName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="FirstName" class="form-control" disabled/>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LastName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LastName" class="form-control" disabled/>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Street"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Street.Name" class="form-control" disabled/>
+                        <span asp-validation-for="Street.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="BuildingNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="BuildingNumber" class="form-control" disabled/>
+                        <span asp-validation-for="BuildingNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Bank"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Bank.Name" class="form-control" disabled />
+                        <span asp-validation-for="Bank.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="PaymentAccount"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="PaymentAccount" class="form-control" disabled/>
+                        <span asp-validation-for="PaymentAccount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="INN"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="INN" class="form-control" disabled/>
+                        <span asp-validation-for="INN" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="PhoneNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="PhoneNumber" class="form-control" disabled/>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @*KEEP THIS EMPTY*@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

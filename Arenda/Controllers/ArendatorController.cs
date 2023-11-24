@@ -127,5 +127,147 @@ namespace Arenda.Controllers
                 return View(obj);
             }
         }
+
+        //GET - CREATELEGALENTITY
+        public IActionResult CreateLegalEntity()
+        {
+            var obj = new LegalEntityViewModel()
+            {
+                LegalEntity = new LegalEntity(),
+                StreetSelectList = _db.Streets.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                BankSelectList = _db.Banks.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+            };
+            return View(obj);
+        }
+
+        //POST - CREATELEGALENTITY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateLegalEntity(LegalEntityViewModel obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.LegalEntities.Add(obj.LegalEntity);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        //View additional Information of legal entity
+        public IActionResult ViewAdditionalInformationLE(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var obj = _db.LegalEntities.Find(id);
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+                obj.Street = _db.Streets.Find(obj.StreetId);
+                obj.Bank = _db.Banks.Find(obj.BankId);
+                return View(obj);
+            }
+        }
+
+        //GET - EDITLEGALENTITY
+        public IActionResult EditLegalEntity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var obj = _db.LegalEntities.Find(id);
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+                obj.Street = _db.Streets.Find(obj.StreetId);
+                obj.Bank = _db.Banks.Find(obj.BankId);
+                LegalEntityViewModel legalEntityViewModel = new LegalEntityViewModel()
+                {
+                    LegalEntity = obj,
+                    StreetSelectList = _db.Streets.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    }),
+                    BankSelectList = _db.Banks.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    })
+                };
+                return View(legalEntityViewModel);
+            }
+        }
+
+        //POST - EDITLEGALENTITY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditLegalEntity(LegalEntityViewModel obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.LegalEntities.Update(obj.LegalEntity);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        //GET - DELETELEGALENTITY
+        public IActionResult DeleteLegalEntity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var obj = _db.LegalEntities.Find(id);
+                if (obj == null)
+                {
+                    return BadRequest();
+                }
+                obj.Street = _db.Streets.Find(obj.StreetId);
+                obj.Bank = _db.Banks.Find(obj.BankId);
+                return View(obj);
+            }
+        }
+
+        //POST - DELETELEGALENTITY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteLegalEntity(LegalEntity obj)
+        {
+            if (obj != null)
+            {
+                _db.LegalEntities.Remove(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(obj);
+            }
+        }
     }
 }

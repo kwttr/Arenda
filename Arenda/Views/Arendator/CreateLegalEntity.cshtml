@@ -1,0 +1,121 @@
+﻿@using Arenda.Models.ViewModel;
+@model LegalEntityViewModel
+
+<form method="post">
+    <input asp-for="LegalEntity.Id" hidden />
+    <div class="border p3">
+        <div class="form-group row">
+            <h2 class="text-info p1-3">Добавление юридического лица</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.SecondName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.SecondName" class="form-control" />
+                        <span asp-validation-for="LegalEntity.SecondName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.FirstName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.FirstName" class="form-control" />
+                        <span asp-validation-for="LegalEntity.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.LastName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.LastName" class="form-control" />
+                        <span asp-validation-for="LegalEntity.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.StreetId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="LegalEntity.StreetId" asp-items="@Model.StreetSelectList" class="form-control">
+                            <option disabled selected>--Выберите район города--</option>
+                        </select>
+                        <span asp-validation-for="LegalEntity.StreetId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.BuildingNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.BuildingNumber" class="form-control" />
+                        <span asp-validation-for="LegalEntity.BuildingNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.BankId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="LegalEntity.BankId" asp-items="@Model.BankSelectList" class="form-control">
+                            <option disabled selected>--Выберите район города--</option>
+                        </select>
+                        <span asp-validation-for="LegalEntity.BankId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.PaymentAccount"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.PaymentAccount" class="form-control" />
+                        <span asp-validation-for="LegalEntity.PaymentAccount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.INN"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.INN" class="form-control" />
+                        <span asp-validation-for="LegalEntity.INN" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="LegalEntity.PhoneNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="LegalEntity.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="LegalEntity.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @*KEEP THIS EMPTY*@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
