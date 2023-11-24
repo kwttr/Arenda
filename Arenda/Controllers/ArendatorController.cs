@@ -27,6 +27,7 @@ namespace Arenda.Controllers
 
         public IActionResult OpenModal()
         {
+            var result = PartialView("_Modal");
             return PartialView("_Modal");
         }
 

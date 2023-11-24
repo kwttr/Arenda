@@ -1,6 +1,10 @@
 ﻿@using Arenda.Models.ViewModel;
 @model ArendatorViewModel
-<div id="myModalShow" class="modal-dialog"></div>
+
+@*<div id="modDialog" class="modal fade">*@
+    <div id="dialogContent" class="modal-dialog"></div>
+@*</div>*@
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -9,9 +13,6 @@
         <div class="col-6 text-right">
             <button id="openModalButton" class="btn btn-primary">Добавить арендатора</button>
         </div>
-    </div>
-    <div id="modDialog" class="modal fade">
-        <div id="dialogContent" class="modal-dialog"></div>
     </div>
     <br /><br />
     <h3 class="text-primary">Список физических лиц</h3>
@@ -95,7 +96,7 @@
             $.ajax({
                 url: '/Arendator/OpenModal',
                 success: function (result) {
-                    $("#myModalShow").html(result);
+                    $("#dialogContent").html(result);
                     $("#myModal").modal('show');
                 }
             });
