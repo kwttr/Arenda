@@ -20,6 +20,8 @@ namespace Arenda.Models
         public DateTime? EndOfContract { get; set; }
 
         public string? AdditionalInfo { get; set; }
+
+        public List<RentedPremise> rentedPremises { get; set; }
     }
 
     public class PaymentFrequency

@@ -1,0 +1,77 @@
+﻿@using Arenda.Models.ViewModel;
+@model ContractViewModel
+
+<form method="post">
+    <input asp-for="Contract.Id" hidden />
+    <div class="border p3">
+        <div class="form-group row">
+            <h2 class="text-info p1-3">Создание договора</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Contract.PaymentFrequencyId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Contract.PaymentFrequencyId" asp-items="@Model.PaymentFrequencySelectList" class="form-control">
+                            <option disabled selected>--Выберите район города--</option>
+                        </select>
+                        <span asp-validation-for="Contract.PaymentFrequencyId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Contract.ArendatorId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Contract.ArendatorId" asp-items="@Model.ArendatorSelectList" class="form-control">
+                            <option disabled selected>--Выберите район города--</option>
+                        </select>
+                        <span asp-validation-for="Contract.ArendatorId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Contract.StartOfContract"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Contract.StartOfContract" class="form-control" />
+                        <span asp-validation-for="Contract.StartOfContract" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Contract.EndOfContract"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Contract.EndOfContract" class="form-control" />
+                        <span asp-validation-for="Contract.EndOfContract" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @*KEEP THIS EMPTY*@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
