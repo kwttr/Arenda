@@ -1,4 +1,5 @@
 ﻿using Arenda.Data;
+using Arenda.Models;
 using Arenda.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -65,6 +66,11 @@ namespace Arenda.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+        }
+
+        public IActionResult GetRentedPremiseForm()
+        {
+            return PartialView("_RentedPremisePartial", new RentedPremise());
         }
     }
 }

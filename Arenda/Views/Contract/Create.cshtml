@@ -1,6 +1,15 @@
 ﻿@using Arenda.Models.ViewModel;
 @model ContractViewModel
 
+@{
+    List<RentedPremise> objList = new List<RentedPremise>();
+
+    void AddPremise()
+    {
+        objList.Add(new RentedPremise());
+    }
+}
+
 <form method="post">
     <input asp-for="Contract.Id" hidden />
     <div class="border p3">
@@ -15,7 +24,7 @@
                     </div>
                     <div class="col-8">
                         <select asp-for="Contract.PaymentFrequencyId" asp-items="@Model.PaymentFrequencySelectList" class="form-control">
-                            <option disabled selected>--Выберите район города--</option>
+                            <option disabled selected>--Выберите периодичность оплаты--</option>
                         </select>
                         <span asp-validation-for="Contract.PaymentFrequencyId" class="text-danger"></span>
                     </div>
@@ -26,7 +35,7 @@
                     </div>
                     <div class="col-8">
                         <select asp-for="Contract.ArendatorId" asp-items="@Model.ArendatorSelectList" class="form-control">
-                            <option disabled selected>--Выберите район города--</option>
+                            <option disabled selected>--Выберите арендатора--</option>
                         </select>
                         <span asp-validation-for="Contract.ArendatorId" class="text-danger"></span>
                     </div>
@@ -49,7 +58,19 @@
                         <span asp-validation-for="Contract.EndOfContract" class="text-danger"></span>
                     </div>
                 </div>
+                @if(Model.Contract.rentedPremises != null)
+                {
+                <div id="premises">
+                    @foreach (var premise in Model.Contract.rentedPremises)
+                    {
+                        <partial name="_RentedPremisePartial" model="premise" />
+                    }
+                </div>
+                }
 
+                <button type="button" id="add-premise">Добавить помещение</button>
+
+                <p></p>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
                         <div class="col">
@@ -61,9 +82,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                @*KEEP THIS EMPTY*@
-            </div>
         </div>
     </div>
 </form>
@@ -73,5 +91,13 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $('#add-premise').click(function() {
+            $.get('@Url.Action("GetRentedPremiseForm", "Contract")', function(data) {
+                $('#premises').append(data);
+            });
+        });
+    </script>
 }
