@@ -58,6 +58,14 @@
                         <span asp-validation-for="Contract.EndOfContract" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Contract.AdditionalInfo"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Contract.AdditionalInfo" class="form-control" />
+                    </div>
+                </div>
 
                 <div id="rentedPremisesContainer"></div>
 
@@ -88,10 +96,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script>
+        var index = 0;
         $(document).ready(function () {
             $("#addApartment").click(function () {
-                $.get("/Contract/GetRentedPremiseForm", function (data) {
+                $.get("/Contract/GetRentedPremiseForm", { index: index }, function (data) {
                     $("#rentedPremisesContainer").append(data);
+                    index++;
                 });
             });
         });

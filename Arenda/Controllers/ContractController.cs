@@ -63,16 +63,22 @@ namespace Arenda.Controllers
             }
         }
 
-        public IActionResult GetRentedPremiseForm()
+        public IActionResult GetRentedPremiseForm(int index)
         {
             RentedPremiseViewModel viewModel = new RentedPremiseViewModel()
             {
                 Premises = _db.Premises.Select(i=>new SelectListItem()
                 {
-                    Text = i.PremiseNumber.ToString() + i.Building.NumberOfBuilding + i.Building.Street.Name,
+                    Text = $"{i.PremiseNumber} {i.Building.NumberOfBuilding} {i.Building.Street.Name}",
+                    Value = i.Id.ToString()
+                }),
+                RentPurposes = _db.RentPurposes.Select(i=>new SelectListItem()
+                {
+                    Text= i.Name,
                     Value = i.Id.ToString()
                 })
             };
+            ViewData["index"] = index;
             return PartialView("_RentedPremisePartial", viewModel);
         }
     }
