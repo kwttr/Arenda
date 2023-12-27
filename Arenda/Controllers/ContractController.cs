@@ -40,11 +40,6 @@ namespace Arenda.Controllers
                 {
                     Text = i.SecondName + " " + i.FirstName + " " + i.LastName,
                     Value = i.Id.ToString()
-                }),
-                PremiseSelectList = _db.Premises.Select(i => new SelectListItem()
-                {
-                    Text = i.PremiseNumber.ToString(),
-                    Value = i.Id.ToString()
                 })
             };
 
@@ -70,7 +65,15 @@ namespace Arenda.Controllers
 
         public IActionResult GetRentedPremiseForm()
         {
-            return PartialView("_RentedPremisePartial", new RentedPremise());
+            RentedPremiseViewModel viewModel = new RentedPremiseViewModel()
+            {
+                Premises = _db.Premises.Select(i=>new SelectListItem()
+                {
+                    Text = i.PremiseNumber.ToString() + i.Building.NumberOfBuilding + i.Building.Street.Name,
+                    Value = i.Id.ToString()
+                })
+            };
+            return PartialView("_RentedPremisePartial", viewModel);
         }
     }
 }

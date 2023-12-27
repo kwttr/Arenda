@@ -1,6 +1,19 @@
-﻿@model RentedPremise
+﻿@using Arenda.Models.ViewModel
+@model RentedPremiseViewModel
 
-<h1>GetRentedPremiseForm</h1>
+@* Форма для ввода помещения, цели аренды и стоимости аренды. *@
+<div class="form-group row">
+    <div class="col-4">
+        <label>Арендованное помещение</label>
+    </div>
+    <div class="col-8">
+        <select asp-for="@Model.RentedPremise.PremiseId" asp-items="@Model.Premises" class="form-control">
+            <option disabled selected>--Выберите помещение--</option>
+        </select>
+        <span asp-validation-for="@Model.RentedPremise.PremiseId" class="text-danger"></span>
+    </div>
+</div>
+    
 
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
