@@ -5,31 +5,33 @@
 @{
     var index = ViewData["index"];
 }
-<div class="form-group row">
-    <div class="col-4">
-        <label>Арендованное помещение</label>
+<form method="post">
+    <div class="form-group row">
+        <div class="col-4">
+            <label>Арендованное помещение</label>
+        </div>
+        <div class="col-2">
+            <select asp-for="RentedPremise.PremiseId" name="rentedPremiseViewModels[@index].RentedPremise.PremiseId" asp-items="@Model.Premises" class="form-control">
+                <option disabled selected>--Выберите помещение--</option>
+            </select>
+            <span asp-validation-for="@Model.RentedPremise.PremiseId" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <select asp-for="@Model.RentedPremise.RentPurposeId" asp-items="@Model.RentPurposes" class="form-control">
+                <option disabled selected>--Выберите цель аренды--</option>
+            </select>
+            <span asp-validation-for="@Model.RentedPremise.RentPurposeId" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <input asp-for="@Model.RentedPremise.RentCost" placeholder="Размер платы" class="form-control"/>
+            <span asp-validation-for="@Model.RentedPremise.RentCost" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <input asp-for="@Model.RentedPremise.RentalPeriod" placeholder="Срок аренды" class="form-control"/>
+            <span asp-validation-for="@Model.RentedPremise.RentalPeriod" class="text-danger"></span>
+        </div>
     </div>
-    <div class="col-2">
-        <select asp-for="@Model.RentedPremise.PremiseId" name="RentedPremises[@index].RentedPremise.PremiseId" asp-items="@Model.Premises" class="form-control">
-            <option disabled selected>--Выберите помещение--</option>
-        </select>
-        <span asp-validation-for="@Model.RentedPremise.PremiseId" class="text-danger"></span>
-    </div>
-    <div class="col-2">
-        <select asp-for="@Model.RentedPremise.RentPurposeId" asp-items="@Model.RentPurposes" class="form-control">
-            <option disabled selected>--Выберите цель аренды--</option>
-        </select>
-        <span asp-validation-for="@Model.RentedPremise.RentPurposeId" class="text-danger"></span>
-    </div>
-    <div class="col-2">
-        <input asp-for="@Model.RentedPremise.RentCost" placeholder="Размер платы" class="form-control"/>
-        <span asp-validation-for="@Model.RentedPremise.RentCost" class="text-danger"></span>
-    </div>
-    <div class="col-2">
-        <input asp-for="@Model.RentedPremise.RentalPeriod" placeholder="Срок аренды" class="form-control"/>
-        <span asp-validation-for="@Model.RentedPremise.RentalPeriod" class="text-danger"></span>
-    </div>
-</div>
+</form>
 
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

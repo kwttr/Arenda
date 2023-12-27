@@ -3,6 +3,7 @@ using Arenda.Models;
 using Arenda.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arenda.Controllers
 {
@@ -31,10 +32,10 @@ namespace Arenda.Controllers
             ContractViewModel obj = new ContractViewModel()
             {
                 Contract = new Models.Contract(),
-                PaymentFrequencySelectList = _db.PaymentFrequencies.Select(i=> new SelectListItem()
+                PaymentFrequencySelectList = _db.PaymentFrequencies.Select(i => new SelectListItem()
                 {
-                    Text=i.Name,
-                    Value=i.Id.ToString()
+                    Text = i.Name,
+                    Value = i.Id.ToString()
                 }),
                 ArendatorSelectList = _db.Arendators.Select(i => new SelectListItem()
                 {
@@ -63,7 +64,7 @@ namespace Arenda.Controllers
             }
         }
 
-        public IActionResult GetRentedPremiseForm(int index)
+        public IActionResult GetRentedPremiseForm(ContractViewModel obj, int index)
         {
             RentedPremiseViewModel viewModel = new RentedPremiseViewModel()
             {
@@ -79,7 +80,8 @@ namespace Arenda.Controllers
                 })
             };
             ViewData["index"] = index;
-            return PartialView("_RentedPremisePartial", viewModel);
+            obj.rentedPremiseViewModels.Add(viewModel);
+            return PartialView("_RentedPremisePartial", obj.rentedPremiseViewModels[index]);
         }
     }
 }

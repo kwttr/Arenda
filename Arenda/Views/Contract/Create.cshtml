@@ -89,7 +89,7 @@
 
 
 @{
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
 }
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -99,7 +99,8 @@
         var index = 0;
         $(document).ready(function () {
             $("#addApartment").click(function () {
-                $.get("/Contract/GetRentedPremiseForm", { index: index }, function (data) {
+                var contractViewModelJson = '@Json.Serialize(@Model)';
+                $.get("/Contract/GetRentedPremiseForm", { obj: contractViewModelJson; index: index }, function (data) {
                     $("#rentedPremisesContainer").append(data);
                     index++;
                 });
