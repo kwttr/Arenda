@@ -4,8 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite("Filename = Database.db"));
 

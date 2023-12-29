@@ -21,6 +21,8 @@ namespace Arenda.Models
         public Contract? Contract { get; set; }
 
         public int RentCost { get; set; }
+
+        public string RentalPeriod { get; set; }
     }
 
     public class RentPurpose

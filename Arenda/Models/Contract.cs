@@ -8,6 +8,9 @@ namespace Arenda.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name ="Регистрационный номер")]
+        public string RegistrationNumber { get; set; }
+
         public int PaymentFrequencyId { get; set; }
         [ForeignKey(nameof(PaymentFrequencyId))]
         public PaymentFrequency? PaymentFrequency { get; set; }
@@ -19,6 +22,7 @@ namespace Arenda.Models
         public DateTime? StartOfContract { get; set; }
         public DateTime? EndOfContract { get; set; }
 
+        [Display(Name = "Дополнительная информация")]
         public string? AdditionalInfo { get; set; }
 
         public List<RentedPremise> rentedPremises { get; set; }
