@@ -64,7 +64,7 @@ namespace Arenda.Controllers
             }
         }
 
-        public IActionResult GetRentedPremiseForm(ContractViewModel obj, int index)
+        public IActionResult GetRentedPremiseForm(int index)
         {
             RentedPremiseViewModel viewModel = new RentedPremiseViewModel()
             {
@@ -80,8 +80,7 @@ namespace Arenda.Controllers
                 })
             };
             ViewData["index"] = index;
-            obj.rentedPremiseViewModels.Add(viewModel);
-            return PartialView("_RentedPremisePartial", obj.rentedPremiseViewModels[index]);
+            return PartialView("_RentedPremisePartial", viewModel);
         }
     }
 }

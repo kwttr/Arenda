@@ -99,8 +99,7 @@
         var index = 0;
         $(document).ready(function () {
             $("#addApartment").click(function () {
-                var contractViewModelJson = '@Json.Serialize(@Model)';
-                $.get("/Contract/GetRentedPremiseForm", { obj: contractViewModelJson; index: index }, function (data) {
+                $.get("/Contract/GetRentedPremiseForm", {index: index }, function (data) {
                     $("#rentedPremisesContainer").append(data);
                     index++;
                 });
