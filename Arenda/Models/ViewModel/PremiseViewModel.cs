@@ -19,5 +19,6 @@ namespace Arenda.Models.ViewModel
         public IEnumerable<SelectListItem>? Premises { get; set; }
         public IEnumerable<SelectListItem>? RentPurposes { get; set; }
         public RentedPremise RentedPremise { get; set; }
+        public int Index { get; set; }
     }
 }

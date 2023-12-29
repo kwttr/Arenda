@@ -52,34 +52,38 @@ namespace Arenda.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ContractViewModel obj)
         {
-            if (obj == null)
+            if (ModelState.IsValid)
             {
-                return View("Error");
+                if (obj == null)
+                {
+                    return View("Error");
+                }
+                else
+                {
+                    _db.Contracts.Add(obj.Contract);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            else
-            {
-                _db.Contracts.Add(obj.Contract);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            else return Create();
         }
 
         public IActionResult GetRentedPremiseForm(int index)
         {
             RentedPremiseViewModel viewModel = new RentedPremiseViewModel()
             {
-                Premises = _db.Premises.Select(i=>new SelectListItem()
+                Premises = _db.Premises.Select(i => new SelectListItem()
                 {
                     Text = $"{i.PremiseNumber} {i.Building.NumberOfBuilding} {i.Building.Street.Name}",
                     Value = i.Id.ToString()
                 }),
-                RentPurposes = _db.RentPurposes.Select(i=>new SelectListItem()
+                RentPurposes = _db.RentPurposes.Select(i => new SelectListItem()
                 {
-                    Text= i.Name,
+                    Text = i.Name,
                     Value = i.Id.ToString()
-                })
+                }),
+                Index = index
             };
-            ViewData["index"] = index;
             return PartialView("_RentedPremisePartial", viewModel);
         }
     }
