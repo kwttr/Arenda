@@ -123,10 +123,7 @@ namespace Arenda.Controllers
         //GET - EDITPREMISE
         public IActionResult EditPremise(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
             else
             {
                 PremiseViewModel obj = new PremiseViewModel()

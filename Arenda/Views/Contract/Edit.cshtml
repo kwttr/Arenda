@@ -1,5 +1,5 @@
 ﻿@using Arenda.Models.ViewModel;
-@model ContractViewModel
+@model ContractEditViewModel
 
 <form method="post">
     <input asp-for="Contract.Id" hidden />
@@ -67,7 +67,15 @@
                     </div>
                 </div>
 
-                <div id="rentedPremisesContainer"></div>
+                <div id="rentedPremisesContainer">
+                    @for(var i = 0; i < Model.Premises.Count; i++)
+                    {
+                        <input asp-for="Premises[i].Id" hidden />
+                        var rentedPremiseViewModel = Model.rentedPremiseViewModels[i];
+                        ViewData["index"] = i;
+                        <partial name="_RentedPremisePartial" model="rentedPremiseViewModel" view-data="ViewData" />
+                    }
+                </div>
 
                 <button type="button" id="addApartment">Добавить квартиру</button>
 
@@ -75,7 +83,7 @@
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
                         <div class="col">
-                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                            <input type="submit" class="btn btn-info w-100" value="Edit" />
                         </div>
                         <div class="col">
                             <a asp-action="Index" class="btn btn-success w-100">Back</a>
@@ -87,10 +95,11 @@
     </div>
 </form>
 
-@section Scripts{
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/bundles/jqueryval"></script>
+
+@{
+    <partial name="_ValidationScriptsPartial" />
+}
+@section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -98,7 +107,7 @@
         var index = 0;
         $(document).ready(function () {
             $("#addApartment").click(function () {
-                $.get("/Contract/GetRentedPremiseForm", {index: index}, function (data) {
+                $.get("/Contract/GetRentedPremiseForm", { index: index }, function (data) {
                     $("#rentedPremisesContainer").append(data);
                     index++;
                 });

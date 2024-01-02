@@ -2,30 +2,32 @@
 @model RentedPremiseViewModel
 
 @* Форма для ввода помещения, цели аренды и стоимости аренды. *@
-    <div class="form-group row">
+<div class="form-group row">
+
         <div class="col-4">
             <label>Арендованное помещение</label>
         </div>
         <div class="col-2">
-            <select name="Premises[@Model.Index].PremiseId" asp-items="@Model.Premises" class="form-control">
+            <select asp-for="RentedPremise.PremiseId" name="Premises[@Model.Index].PremiseId" asp-items="@Model.Premises" class="form-control">
                 <option disabled selected>--Выберите помещение--</option>
             </select>
-            @* <span asp-validation-for="@Model.RentedPremise.PremiseId" class="text-danger"></span> *@
+            <span asp-validation-for="@Model.RentedPremise.PremiseId" class="text-danger"></span> 
         </div>
         <div class="col-2">
-            <select name="Premises[@Model.Index].RentPurposeId" asp-items="@Model.RentPurposes" class="form-control">
+            <select asp-for="RentedPremise.RentPurposeId" name="Premises[@Model.Index].RentPurposeId" asp-items="@Model.RentPurposes" class="form-control">
                 <option disabled selected>--Выберите цель аренды--</option>
             </select>
-            @* <span asp-validation-for="@Model.RentedPremise.RentPurposeId" class="text-danger"></span> *@
+             <span asp-validation-for="@Model.RentedPremise.RentPurposeId" class="text-danger"></span> 
         </div>
         <div class="col-2">
-            <input name="Premises[@Model.Index].RentCost" placeholder="Размер платы" class="form-control" />
-            @* <span asp-validation-for="@Model.RentedPremise.RentCost" class="text-danger"></span> *@
+            <input asp-for="RentedPremise.RentCost" name="Premises[@Model.Index].RentCost" placeholder="Размер платы" class="form-control" />
+            <span asp-validation-for="@Model.RentedPremise.RentCost" class="text-danger"></span>
         </div>
         <div class="col-2">
-            <input name="Premises[@Model.Index].RentalPeriod" placeholder="Срок аренды" class="form-control" />
-            @* <span asp-validation-for="@Model.RentedPremise.RentalPeriod" class="text-danger"></span> *@
+            <input asp-for="RentedPremise.RentalPeriod"  name="Premises[@Model.Index].RentalPeriod" placeholder="Срок аренды" class="form-control" />
+            <span asp-validation-for="@Model.RentedPremise.RentalPeriod" class="text-danger"></span>
         </div>
+        <button type="button" class="removeApartment">Удалить квартиру</button>
     </div>
 
 @section Scripts{
