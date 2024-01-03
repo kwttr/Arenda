@@ -5,7 +5,7 @@
     <input asp-for="Contract.Id" hidden />
     <div class="border p3">
         <div class="form-group row">
-            <h2 class="text-info p1-3">Редактирование договора</h2>
+            <h2 class="text-info p1-3">Удаление договора</h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -14,7 +14,7 @@
                         <label asp-for="Contract.RegistrationNumber"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Contract.RegistrationNumber" class="form-control" />
+                        <input asp-for="Contract.RegistrationNumber" class="form-control" disabled/>
                         <span asp-validation-for="Contract.RegistrationNumber" class="text-danger"></span>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                         <label asp-for="Contract.PaymentFrequencyId"></label>
                     </div>
                     <div class="col-8">
-                        <select asp-for="Contract.PaymentFrequencyId" asp-items="@Model.PaymentFrequencySelectList" class="form-control">
+                        <select asp-for="Contract.PaymentFrequencyId" asp-items="@Model.PaymentFrequencySelectList" class="form-control" disabled>
                             <option disabled selected>--Выберите периодичность оплаты--</option>
                         </select>
                         <span asp-validation-for="Contract.PaymentFrequencyId" class="text-danger"></span>
@@ -34,7 +34,7 @@
                         <label asp-for="Contract.ArendatorId"></label>
                     </div>
                     <div class="col-8">
-                        <select asp-for="Contract.ArendatorId" asp-items="@Model.ArendatorSelectList" class="form-control">
+                        <select asp-for="Contract.ArendatorId" asp-items="@Model.ArendatorSelectList" class="form-control" disabled>
                             <option disabled selected>--Выберите арендатора--</option>
                         </select>
                         <span asp-validation-for="Contract.ArendatorId" class="text-danger"></span>
@@ -45,7 +45,7 @@
                         <label asp-for="Contract.StartOfContract"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Contract.StartOfContract" class="form-control" />
+                        <input asp-for="Contract.StartOfContract" class="form-control" disabled/>
                         <span asp-validation-for="Contract.StartOfContract" class="text-danger"></span>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <label asp-for="Contract.EndOfContract"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Contract.EndOfContract" class="form-control" />
+                        <input asp-for="Contract.EndOfContract" class="form-control" disabled/>
                         <span asp-validation-for="Contract.EndOfContract" class="text-danger"></span>
                     </div>
                 </div>
@@ -63,27 +63,40 @@
                         <label asp-for="Contract.AdditionalInfo"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Contract.AdditionalInfo" class="form-control" />
+                        <input asp-for="Contract.AdditionalInfo" class="form-control" disabled/>
                     </div>
                 </div>
 
-                <div id="rentedPremisesContainer">
-                    @for(var i = 0; i < Model.Premises.Count; i++)
-                    {
-                        <input asp-for="Premises[i].Id" hidden />
-                        var rentedPremiseViewModel = Model.rentedPremiseViewModels[i];
-                        ViewData["index"] = i;
-                        <partial name="_RentedPremisePartial" model="rentedPremiseViewModel" view-data="ViewData" />
-                    }
-                </div>
-
-                <button type="button" id="addApartment">Добавить квартиру</button>
+                @for(int i = 0;i<Model.Premises.Count;i++)
+                {
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label>Арендованное помещение</label>
+                        </div>
+                        <div class="col-2">
+                            <select asp-for="Premises[i].PremiseId" asp-items="@Model.rentedPremiseViewModels[i].Premises" class="form-control" disabled>
+                                <option disabled selected>--Выберите помещение--</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select asp-for="Premises[i].RentPurposeId" asp-items="@Model.rentedPremiseViewModels[i].RentPurposes" class="form-control" disabled>
+                                <option disabled selected>--Выберите цель аренды--</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <input asp-for="Premises[i].RentCost" placeholder="Размер платы" class="form-control" disabled/>
+                        </div>
+                        <div class="col-2">
+                            <input asp-for="Premises[i].RentalPeriod" placeholder="Срок аренды" class="form-control" disabled/>
+                        </div>
+                    </div>
+                }
 
                 <p></p>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
                         <div class="col">
-                            <input type="submit" class="btn btn-info w-100" value="Edit" />
+                            <input type="submit" class="btn btn-danger w-100" value="Delete" />
                         </div>
                         <div class="col">
                             <a asp-action="Index" class="btn btn-success w-100">Back</a>
@@ -95,28 +108,8 @@
     </div>
 </form>
 
-
-@{
-    <partial name="_ValidationScriptsPartial" />
-}
 @section Scripts {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <script>
-        var index = 0;
-        $(document).ready(function () {
-            $("#addApartment").click(function () {
-                $.get("/Contract/GetRentedPremiseForm", { index: index }, function (data) {
-                    $("#rentedPremisesContainer").append(data);
-                    index++;
-                });
-            });
-
-            $("#rentedPremisesContainer").on('click', '.removeApartment', function () {
-                $(this).parent().remove();
-                index--;
-            });
-        });
-    </script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/bundles/jqueryval"></script>
 }

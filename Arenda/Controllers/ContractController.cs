@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Diagnostics.Contracts;
 
 namespace Arenda.Controllers
 {
@@ -154,6 +155,62 @@ namespace Arenda.Controllers
                 return RedirectToAction("Index");
             }
             return BadRequest();
+        }
+
+        //GET - DELETE
+        public IActionResult Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            else
+            {
+                ContractEditViewModel obj = new()
+                {
+                    Contract = _db.Contracts.Find(id),
+                    Premises = _db.RentedPremises.Where(p => p.ContractId == id).ToList(),
+                    PaymentFrequencySelectList = _db.PaymentFrequencies.Select(i => new SelectListItem()
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    }),
+                    ArendatorSelectList = _db.Arendators.Select(i => new SelectListItem()
+                    {
+                        Text = i.SecondName + " " + i.FirstName + " " + i.LastName,
+                        Value = i.Id.ToString()
+                    }),
+                };
+                int i = 0;
+                foreach(var item in obj.Premises)
+                {
+                    obj.rentedPremiseViewModels.Add(new RentedPremiseViewModel()
+                    {
+                        Premises = _db.Premises.Select(i => new SelectListItem()
+                        {
+                            Text = $"{i.PremiseNumber} {i.Building.NumberOfBuilding} {i.Building.Street.Name}",
+                            Value = i.Id.ToString()
+                        }),
+                        RentPurposes = _db.RentPurposes.Select(i => new SelectListItem()
+                        {
+                            Text = i.Name,
+                            Value = i.Id.ToString()
+                        }),
+                        Index = i,
+                        RentedPremise = item
+                    });
+                    i++;
+                }
+                return View(obj);
+            }
+        }
+
+        //POST - DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(ContractViewModel obj)
+        {
+            if (obj == null) return BadRequest();
+            if (obj.Contract != null) _db.Contracts.Remove(obj.Contract);
+            else return BadRequest();
+            return RedirectToAction("Index");
         }
     }
 }
