@@ -18,4 +18,11 @@ namespace Arenda.Models.ViewModel
         public List<RentedPremiseViewModel> rentedPremiseViewModels { get; set; } = new();
         public List<RentedPremise> Premises { get; set; } = new List<RentedPremise>();
     }
+
+    public class ContractPenaltyViewModel
+    {
+        public Contract Contract { get; set; }
+        public IEnumerable<Penalty> Penalties { get; set; }
+
+    }
 }

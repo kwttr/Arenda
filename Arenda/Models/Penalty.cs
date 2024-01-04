@@ -13,5 +13,7 @@ namespace Arenda.Models
         public Contract? Contract { get; set; }
         
         public int Amount { get; set; }
+
+        public bool IsPaid { get; set; } = false;
     }
 }

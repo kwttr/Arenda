@@ -212,5 +212,24 @@ namespace Arenda.Controllers
             else return BadRequest();
             return RedirectToAction("Index");
         }
+
+        //GET - VIEWPENALTIES
+        public IActionResult ViewPenalties(int? id)
+        { 
+            if(id == null) return NotFound();
+            ContractPenaltyViewModel vm = new()
+            {
+                Contract = _db.Contracts.Find(id),
+                Penalties = _db.Penalty.Where(x=>x.ContractId == id)
+            };
+            return View(vm);
+        }
+
+        //GET - ADDPENALTY
+        public IActionResult AddPenalty(int? id)
+        {
+            if(id == null) return NotFound();
+            return View();
+        }
     }
 }

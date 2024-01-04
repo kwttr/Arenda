@@ -1,34 +1,35 @@
-﻿@model IEnumerable<Contract>
+﻿@using Arenda.Models.ViewModel
+@model ContractPenaltyViewModel
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Список договоров</h2>
+            <h2 class="text-primary">Список штрафов</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-action="Create" class="btn btn-primary">Создать договор</a>
+            <a asp-route-id="@Model.Contract.Id" asp-action="AddPenalty" class="btn btn-primary">Добавить штраф</a>
+            <a asp-action="Index" class="btn btn-secondary">Назад</a>
         </div>
     </div>
 
     <br /><br />
 
-    @if (Model.Count() > 0)
+    @if (Model.Penalties.Count() > 0)
     {
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>ФИО арендатора</th>
+                    <th>Номер договора</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model)
+                @foreach (var obj in Model.Penalties)
                 {
                     <tr>
-                        <td width="15%">@obj.Arendator.SecondName @obj.Arendator.FirstName @obj.Arendator.LastName</td>
+                        <td width="15%">@obj.Contract.RegistrationNumber</td>
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
-                                <a asp-route-Id="@obj.Id" asp-action="ViewPenalties" class="btn btn-primary mx-2">Просмотр штрафов</a>
                                 <a asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-warning mx-2">Редактировать</a>
                                 <a asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">Удалить</a>
                             </div>
@@ -40,6 +41,6 @@
     }
     else
     {
-        <p>Договоров не добавлено</p>
+        <p>Штрафов не добавлено</p>
     }
 </div>
