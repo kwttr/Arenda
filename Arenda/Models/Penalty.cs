@@ -11,7 +11,8 @@ namespace Arenda.Models
         public int ContractId { get; set; }
         [ForeignKey(nameof(ContractId))]
         public Contract? Contract { get; set; }
-        
+
+        [Display(Name = "Размер штрафа")]
         public int Amount { get; set; }
 
         public bool IsPaid { get; set; } = false;

@@ -57,5 +57,27 @@ namespace Arenda.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        //GET - DELETE
+        public IActionResult Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            var obj = _db.Streets.Find(id);
+            return View(obj);
+        }
+
+        //POST - DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Street obj)
+        {
+            if (obj!=null)
+            {
+                _db.Remove(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return BadRequest();
+        }
     }
 }

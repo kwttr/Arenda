@@ -229,7 +229,66 @@ namespace Arenda.Controllers
         public IActionResult AddPenalty(int? id)
         {
             if(id == null) return NotFound();
-            return View();
+            Penalty obj = new() { ContractId = (int)id};
+            return View(obj);
+        }
+
+        //POST - ADDPENALTY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddPenalty(Penalty obj)
+        {
+            if (obj == null) return NotFound();
+            if (ModelState.IsValid)
+            {
+                _db.Penalty.Add(obj);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("ViewPenalties", new { Id = obj.ContractId });
+        }
+
+        //GET - EDITPENALTY
+        public IActionResult EditPenalty(int? id)
+        {
+            if (id == null) return NotFound();
+            var obj = _db.Penalty.Find(id);
+            return View(obj);
+        }
+
+        //POST - EDITPENALTY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPenalty(Penalty obj)
+        {
+            if (obj == null) return NotFound();
+            if (ModelState.IsValid)
+            {
+                _db.Penalty.Update(obj);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("ViewPenalties", new { Id = obj.ContractId });
+        }
+
+        //GET - DELETEPENALTY
+        public IActionResult DeletePenalty(int? id)
+        {
+            if (id == null) return NotFound();
+            var obj = _db.Penalty.Find(id);
+            return View(obj);
+        }
+
+        //POST - DELETEPENALTY
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePenalty(Penalty obj)
+        {
+            if (obj == null) return NotFound();
+            if (ModelState.IsValid)
+            {
+                _db.Penalty.Remove(obj);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("ViewPenalties", new { Id = obj.ContractId });
         }
     }
 }
