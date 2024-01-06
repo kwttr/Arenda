@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.gridcontainer {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-gap: 10px;
+}
