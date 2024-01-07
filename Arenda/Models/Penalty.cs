@@ -8,6 +8,7 @@ namespace Arenda.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "Контракт")]
         public int ContractId { get; set; }
         [ForeignKey(nameof(ContractId))]
         public Contract? Contract { get; set; }
