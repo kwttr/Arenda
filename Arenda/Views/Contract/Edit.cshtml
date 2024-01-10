@@ -104,7 +104,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script>
-        var index = 0;
+        var index = @Model.Premises.Count();
         $(document).ready(function () {
             $("#addApartment").click(function () {
                 $.get("/Contract/GetRentedPremiseForm", { index: index }, function (data) {

@@ -4,9 +4,6 @@ using Arenda.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Diagnostics.Contracts;
 
 namespace Arenda.Controllers
 {
@@ -140,16 +137,41 @@ namespace Arenda.Controllers
         //POST - EDIT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ContractViewModel obj)
+        public IActionResult Edit(ContractEditViewModel obj)
         {
             ModelState.Remove("Contract.rentedPremises");
+
+            //УДАЛЕНИЕ
+            int j = 0;
+            for (int i = 0; i < obj.Premises.Count(); i++)
+            {
+                if (ModelState[$"Premises[{j}].RentalPeriod"].ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                {
+                    ModelState.Remove($"Premises[{j}].RentalPeriod");
+                    ModelState.Remove($"Premises[{j}].Id");
+                    if (obj.Premises[i].Id != 0) _db.RentedPremises.Remove(obj.Premises[i]);
+                    obj.Premises.Remove(obj.Premises[i]);
+                    _db.SaveChanges();
+                    i--;
+                }
+                j++;
+            }
+
             if (ModelState.IsValid)
             {
+                //Добавление или редактирование
                 foreach(var item in obj.Premises)
                 {
                     item.Contract = obj.Contract;
-                    if (item.Id == 0) _db.RentedPremises.Add(item);
-                    else _db.RentedPremises.Update(item);
+                    if (item.Id == 0)
+                    {
+                        _db.RentedPremises.Add(item);
+                        obj.Contract.rentedPremises.Add(item);
+                    }
+                    else
+                    {
+                        _db.RentedPremises.Update(item);
+                    }
                 }
                 obj.Contract.rentedPremises = obj.Premises;
                 _db.Contracts.Update(obj.Contract);
