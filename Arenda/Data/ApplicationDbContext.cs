@@ -1,4 +1,6 @@
-﻿using Arenda.Models;
+﻿using Arenda.Areas.Identity.Pages.Account;
+using Arenda.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +36,37 @@ namespace Arenda.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Создание начальной роли
+            var adminRoleId = Guid.NewGuid().ToString();
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            });
+
+            // Создание начального пользователя
+            var adminUserId = Guid.NewGuid().ToString();
+            var hasher = new PasswordHasher<IdentityUser>();
+            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Id = adminUserId,
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM",
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Temp1234*"),
+                SecurityStamp = string.Empty // Обычно используется для смены пароля, в данном случае может быть пустым
+            });
+
+            // Привязка пользователя к роли
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = adminRoleId,
+                UserId = adminUserId
+            });
 
             List<CityArea> cities = new List<CityArea> { 
                 new CityArea()
@@ -202,5 +235,25 @@ namespace Arenda.Data
             };
             modelBuilder.Entity<LegalEntity>().HasData(legalEntity);
         }
+
+        public static void SeedUsers(UserManager<IdentityUser> userManager)
+        {
+            if (userManager.FindByNameAsync("admin").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "admin@admin.com",
+                    Email = "admin@admin.com"
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "Temp1234*").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
+                }
+            }
+        }
+
     }
 }

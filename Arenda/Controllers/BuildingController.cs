@@ -1,10 +1,12 @@
 ﻿using Arenda.Data;
 using Arenda.Models;
 using Arenda.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arenda.Controllers
 {
+    [Authorize]
     public class BuildingController : Controller
     {
         private readonly ApplicationDbContext _db;

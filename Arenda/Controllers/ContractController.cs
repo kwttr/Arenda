@@ -1,6 +1,7 @@
 ﻿using Arenda.Data;
 using Arenda.Models;
 using Arenda.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -9,6 +10,7 @@ using System.Diagnostics.Contracts;
 
 namespace Arenda.Controllers
 {
+    [Authorize]
     public class ContractController : Controller
     {
         private readonly ApplicationDbContext _db;

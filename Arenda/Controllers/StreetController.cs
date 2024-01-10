@@ -1,9 +1,11 @@
 ﻿using Arenda.Data;
 using Arenda.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arenda.Controllers
 {
+    [Authorize]
     public class StreetController : Controller
     {
         private readonly ApplicationDbContext _db;
