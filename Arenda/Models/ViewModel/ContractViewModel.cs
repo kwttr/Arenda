@@ -23,6 +23,6 @@ namespace Arenda.Models.ViewModel
     {
         public Contract Contract { get; set; }
         public IEnumerable<Penalty> Penalties { get; set; }
-
+        public IEnumerable<Payments> Payments { get; set; }
     }
 }

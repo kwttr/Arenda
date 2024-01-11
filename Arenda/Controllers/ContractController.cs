@@ -237,13 +237,14 @@ namespace Arenda.Controllers
         }
 
         //GET - VIEWPENALTIES
-        public IActionResult ViewPenalties(int? id)
+        public IActionResult ViewTransactions(int? id)
         { 
             if(id == null) return NotFound();
             ContractPenaltyViewModel vm = new()
             {
                 Contract = _db.Contracts.Find(id),
-                Penalties = _db.Penalty.Where(x=>x.ContractId == id)
+                Penalties = _db.Penalty.Where(x=>x.ContractId == id),
+                Payments = _db.Payments.Where(x=>x.RentedPremise.ContractId == id)
             };
             return View(vm);
         }
@@ -289,7 +290,7 @@ namespace Arenda.Controllers
                 _db.Penalty.Update(obj);
                 _db.SaveChanges();
             }
-            return RedirectToAction("ViewPenalties", new { Id = obj.ContractId });
+            return RedirectToAction("ViewTransactions", new { Id = obj.ContractId });
         }
 
         //GET - DELETEPENALTY
@@ -311,7 +312,7 @@ namespace Arenda.Controllers
                 _db.Penalty.Remove(obj);
                 _db.SaveChanges();
             }
-            return RedirectToAction("ViewPenalties", new { Id = obj.ContractId });
+            return RedirectToAction("ViewTransactions", new { Id = obj.ContractId });
         }
     }
 }
