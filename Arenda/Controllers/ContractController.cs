@@ -151,7 +151,6 @@ namespace Arenda.Controllers
                     ModelState.Remove($"Premises[{j}].Id");
                     if (obj.Premises[i].Id != 0) _db.RentedPremises.Remove(obj.Premises[i]);
                     obj.Premises.Remove(obj.Premises[i]);
-                    _db.SaveChanges();
                     i--;
                 }
                 j++;
