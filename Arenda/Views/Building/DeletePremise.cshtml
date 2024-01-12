@@ -1,9 +1,9 @@
 ﻿@using Arenda.Models.ViewModel;
-@model PremiseViewModel
+@model Premise
 
 <form method="post">
-    <input asp-for="Premise.Id" hidden />
-    <input asp-for="Premise.BuildingId" hidden/>
+    <input asp-for="Id" hidden />
+    <input asp-for="BuildingId" hidden />
     <div class="border p3">
         <div class="form-group row">
             <h2 class="text-info p1-3">Добавление помещения</h2>
@@ -12,59 +12,55 @@
             <div class="col-8">
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Premise.PremiseNumber"></label>
+                        <label asp-for="PremiseNumber"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Premise.PremiseNumber" class="form-control" />
-                        <span asp-validation-for="Premise.PremiseNumber" class="text-danger"></span>
+                        <input asp-for="PremiseNumber" class="form-control" disabled/>
+                        <span asp-validation-for="PremiseNumber" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Premise.UsableArea"></label>
+                        <label asp-for="UsableArea"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Premise.UsableArea" class="form-control" />
-                        <span asp-validation-for="Premise.UsableArea" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Premise.Floor"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Premise.Floor" class="form-control" />
-                        <span asp-validation-for="Premise.Floor" class="text-danger"></span>
+                        <input asp-for="UsableArea" class="form-control" disabled/>
+                        <span asp-validation-for="UsableArea" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Premise.TypeOfFinishingId"></label>
+                        <label asp-for="Floor"></label>
                     </div>
                     <div class="col-8">
-                        <select asp-for="Premise.TypeOfFinishingId" asp-items="@Model.TypeOfFinishingSelectList" class="form-control">
-                            <option disabled selected>--Выберите тип отделки--</option>
-                        </select>
-                        <span asp-validation-for="Premise.TypeOfFinishingId" class="text-danger"></span>
+                        <input asp-for="Floor" class="form-control" disabled/>
+                        <span asp-validation-for="Floor" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Premise.NumberExist"></label>
+                        <label asp-for="TypeOfFinishingId"></label>
                     </div>
-                    <div class="col-8 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="col-8">
+                        <input asp-for="TypeOfFinishingId" class="form-control" disabled/>
+                        <span asp-validation-for="TypeOfFinishingId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="checkbox">
+                        <label asp-for="NumberExist" class="form-label">
+                            <input class="form-check-input" asp-for="NumberExist" />
+                            @Html.DisplayNameFor(m => m.NumberExist)
+                        </label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
                         <div class="col">
-                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                            <input type="submit" class="btn btn-danger w-100" value="Delete" />
                         </div>
                         <div class="col">
-                            <a asp-route-id="@Model.Premise.BuildingId" asp-action="ViewPremises" class="btn btn-success w-100">Back</a>
+                            <a asp-route-id="@Model.BuildingId" asp-action="ViewPremises" class="btn btn-success w-100">Back</a>
                         </div>
                     </div>
                 </div>

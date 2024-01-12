@@ -3,6 +3,7 @@ using Arenda.Models;
 using Arenda.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arenda.Controllers
 {
@@ -151,9 +152,107 @@ namespace Arenda.Controllers
                 _db.Premises.Update(obj.Premise);
                 _db.SaveChanges();
             }
-            string url = Url.Action("ViewPremises", new { id = obj.Premise.BuildingId });
+            var url = Url.Action("ViewPremises", new { id = obj.Premise.BuildingId });
             url = url.Replace("%2F", "/");
             return Redirect(url);
+        }
+
+        //GET - DELETE
+        public IActionResult Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            else
+            {
+                var obj = _db.Buildings.Where(b => b.Id == id)
+                    .Include(b => b.Street)
+                    .Include(b => b.CityArea)
+                    .FirstOrDefault();
+                if (obj == null) return NotFound();
+                return View(obj);
+            }
+        }
+
+        //POST - DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Building obj)
+        {
+            if (obj == null) return NotFound();
+            else
+            {
+                _db.Buildings.Remove(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+
+        //GET - EDIT
+        public IActionResult Edit(int? id)
+        {
+            if (id == null) return NotFound();
+            else
+            {
+                BuildingViewModel buildingVM = new BuildingViewModel()
+                {
+                    Building = _db.Buildings.Find(id),
+                    CityAreaSelectList = _db.CityAreas.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    }),
+                    StreetSelectList = _db.Streets.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    })
+                };
+                return View(buildingVM);
+            }
+        }
+
+        //POST - EDIT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BuildingViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Buildings.Update(vm.Building);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else return BadRequest();
+        }
+
+        //GET - DELETEPREMISE
+        public IActionResult DeletePremise(int? id)
+        {
+            if (id == null) return NotFound();
+            else
+            {
+                var obj = _db.Premises.Where(p=>p.Id == id)
+                    .Include(p=>p.TypeOfFinishing)
+                    .FirstOrDefault();
+                if (obj == null) return NotFound();
+                return View(obj);
+            }
+        }
+
+        //POST - DELETEPREMISE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePremise(Premise obj)
+        {
+            if (obj == null) return NotFound();
+            else
+            {
+                _db.Premises.Remove(obj);
+                _db.SaveChanges();
+                var url = Url.Action("ViewPremises", new { id = obj.BuildingId });
+                url = url.Replace("%2F", "/");
+                return Redirect(url);
+            }
+
         }
     }
 }
